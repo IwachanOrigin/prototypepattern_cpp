@@ -12,9 +12,7 @@ int main(int argc, char* argv[])
   pFuA->setLocation(new Location(1, 7));
   pFuA->move(0, -1);
 
-  std::unique_ptr<Piece> pFuB = std::make_unique<Piece>();
-  pFuB->setName("FU");
-  pFuB->setLocation(new Location(2, 7));
+  Piece* pFuB = (Piece*)pFuA->clone();
   pFuB->move(0, -1);
 
   std::cout << "[ first FU ]" << std::endl;

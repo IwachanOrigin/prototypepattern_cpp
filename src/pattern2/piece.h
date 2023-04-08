@@ -2,17 +2,18 @@
 #ifndef PIECE_H_
 #define PIECE_H_
 
+#include "cloneable.h"
 #include "location.h"
 #include <string>
 
 namespace design_pattern
 {
 
-class Piece
+class Piece : public Cloneable
 {
 public:
   explicit Piece() : m_location(nullptr) {}
-  ~Piece()
+  virtual ~Piece()
   {
     if (m_location)
     {
@@ -26,6 +27,13 @@ public:
   void setName(const std::string name) { m_name = name; }
   void setLocation(Location* location) { m_location = location; }
   void move(const int x, const int y) { m_location->move(x, y); }
+
+  Cloneable* clone()
+  {
+    Piece* pClone = new Piece();
+    pClone->setLocation((Location*) m_location->clone());
+    return pClone;
+  }
 
 private:
   std::string m_name;
